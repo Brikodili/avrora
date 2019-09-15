@@ -1,0 +1,40 @@
+.nav {
+  &__logo {
+    padding: 0.5rem 3rem;
+    border-right: 1px solid lightgray;
+  }
+
+  &__search-input {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.navbar-end {
+  margin-right: 1rem;
+
+  .navbar-item:nth-child(4) {
+    position: relative;
+    margin-left: 1.75rem;
+    padding: 0 2rem;
+
+    &:after {
+      position: absolute;
+      right: 0;
+      content: '';
+      height: 2.5rem;
+      width: 1px;
+      background-color: lightgray;
+    }
+
+    &:before {
+      position: absolute;
+      left: 0;
+      content: '';
+      height: 2.5rem;
+      width: 1px;
+      background-color: lightgray;
+    }
+  }
+}
