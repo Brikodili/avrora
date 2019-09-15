@@ -26,7 +26,7 @@ export default function () {
             <li className="navbar-item has-text-grey-light"><a className="has-text-black" href="/">Експерти</a></li>
             <li className="navbar-item"><Link className="has-text-black" to="/question">Питання</Link></li>
             <li className="navbar-item"><a className="has-text-black" href="/">Про нас</a></li>
-            <li className="navbar-item"><a className="has-text-black" href="/">Створити запит</a></li>
+            <li className="navbar-item"><a className="has-text-black" href="/">Допомога</a></li>
           </ul>
           <Dropdown/>
         </nav>
@@ -35,6 +35,8 @@ export default function () {
         <div className="container">
           <div className="columns">
             <div className="column">
+              <button>Створити запит</button>
+              <button>Допомогти</button>
               <div className="box">
                 <Article/>
                 <Article/>

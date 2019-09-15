@@ -30,7 +30,7 @@ export default function () {
           </ul>
           <ul className="navbar-end">
             <li className="navbar-item has-text-grey-light"><a className="has-text-black" href="/">Експерти</a></li>
-            <li className="navbar-item"><a className="has-text-black" href="/">Питання</a></li>
+            <li className="navbar-item"><Link className="has-text-black" to="/question">Питання</Link></li>
             <li className="navbar-item"><a className="has-text-black" href="/">Про нас</a></li>
             {/*<li className="navbar-item"><a className="has-text-black" href="/">Створити запит</a></li>*/}
           </ul>

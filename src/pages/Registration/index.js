@@ -100,6 +100,11 @@ export default function ({history}) {
                   <ErrorMessage name="location_passport" render={msg => <span className="has-text-danger">{msg}</span>} />
                 </div>
                 <div className="field">
+                  <label className="label">Додати медичну карту дитини</label>
+                  <Field type="file" className="input" name="card" placeholder=""/>
+                  <ErrorMessage name="card" render={msg => <span className="has-text-danger">{msg}</span>} />
+                </div>
+                <div className="field">
                   <label className="label">Пароль</label>
                   <Field className="input" type="password" name="password" placeholder="password"/>
                   <ErrorMessage name="password" render={msg => <span className="has-text-danger">{msg}</span>} />
