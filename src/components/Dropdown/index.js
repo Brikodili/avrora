@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import './style.scss';
 
-export default function() {
+export default function({history}) {
   const { dispatch } = useContext(CurrentUserContext);
   const [dropDownShown, setDropDownShown] = useState(false);
 
@@ -14,8 +14,8 @@ export default function() {
   }
 
   function handleLogout() {
-    Cookie.remove('token');
-    dispatch({type: 'CLEAR_CURRENT_USER'})
+    // Cookie.remove('token');
+    // dispatch({type: 'CLEAR_CURRENT_USER'})
   }
 
   return (
@@ -27,9 +27,11 @@ export default function() {
       </div>
       <div className="dropdown-menu" id="dropdown-menu" role="menu">
         <div className="dropdown-content">
-          <Link className="dropdown-item" to="/profile/">Edit profile</Link>
-          <button className="dropdown-item button" onClick={handleLogout}>
-            <span>Logout</span>
+          {/*<Link className="dropdown-item" to="/profile/">Редагувати профіль</Link>*/}
+          <button className="dropdown-item button">
+            <Link to="/login/">
+              Вийти
+            </Link>
           </button>
         </div>
       </div>

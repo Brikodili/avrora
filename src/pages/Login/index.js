@@ -6,17 +6,21 @@ import Layout from 'components/Layout';
 import Cookie from 'js-cookie';
 import { api } from 'api';
 
-export default function(props) {
+export default function({history}) {
   const { dispatch } = useContext(CurrentUserContext);
 
-  function handleSubmit(values, actions) {
-    api.post('/login', values).then((resp) => {
-      dispatch({type: 'SET_CURRENT_USER', payload: resp.data.user });
-      Cookie.set('token', resp.data.token.split(' ')[1]);
-    }).catch((error) => {
-      actions.setErrors({ general: 'Unauthorized' });
-      actions.setSubmitting(false);
-    })
+  // function handleSubmit(values, actions) {
+  //   api.post('/login', values).then((resp) => {
+  //     dispatch({type: 'SET_CURRENT_USER', payload: resp.data.user });
+  //     Cookie.set('token', resp.data.token.split(' ')[1]);
+  //   }).catch((error) => {
+  //     actions.setErrors({ general: 'Unauthorized' });
+  //     actions.setSubmitting(false);
+  //   })
+  // }
+
+  function handleSubmit() {
+    history.push('/dashboard')
   }
 
   const initialFormValues = {
