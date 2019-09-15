@@ -13,17 +13,18 @@ const SPACE = 'space1';
 
 
 async function createTransaction(privateSecret, key, data, tags) {
+    console.log('getting lastIt', NODE_URL, SPACE, key);
     let lastId = await bloqly.getLastId(NODE_URL, SPACE, key);
 
     const nonce = lastId.nonce + 1;
-
+    console.log('signingTransaction', privateSecret, SPACE, key, nonce, tags);
     let signedTransaction = bloqly.signTransaction(
         privateSecret,
         SPACE,
         key,
         nonce,
         Date.now(),
-        data,
+        JSON.stringify(data),
         'memo',
         tags
     );
@@ -35,6 +36,7 @@ async function createTransaction(privateSecret, key, data, tags) {
     const res = await bloqly.sendSignedTransaction(NODE_URL, encodedTransaction);
 
     console.log(res)
+    return res;
 }
 
  
@@ -55,7 +57,7 @@ app.post('/register', async (req, res) => {
         console.log('created transaction', tx);
         res.json({success: true, privateKey: '', tx});
     } catch(ex) {
-        console.error('failure while registering', ex.message);
+        console.error('failure while registering', ex);
         res.json({success: false, error: ex.message});
     }
 });
