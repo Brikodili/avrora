@@ -5,20 +5,23 @@ import signUpValidationSchema from 'pages/Registration/validation-schema';
 import { api } from 'api';
 import {Link} from "react-router-dom";
 import Dropdown from 'components/Dropdown'
+import axios from 'axios';
 
 export default function ({history}) {
-  // function handleSubmit(values, actions) {
-  //   api.post('/register', values).then((resp) => {
-  //     if (resp.status === 201) {
-  //       history.push('/')
-  //     } else {
-  //       actions.setErrors(resp.data.message)
-  //     }
-  //   })
-  // }
-  function handleSubmit(values, actions) {
-    history.push('/')
-  }
+   function handleSubmit(values, actions) {
+     console.log('handleSubmit', values);
+     values = {...values, needhelp: true}
+     axios.post('http://localhost:3005/register', values).then((resp) => {
+       if (resp.status === 201) {
+         history.push('/')
+       } else {
+         actions.setErrors(resp.data.message)
+       }
+     })
+   }
+//  function handleSubmit(values, actions) {
+//    history.push('/')
+//  }
 
   const initialFormValues = {
     name: '',

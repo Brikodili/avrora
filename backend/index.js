@@ -1,24 +1,26 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const bloqly = require('bloqly');
+const cors = require('cors');
+const bloqly = require('./bloqly');
+
 
 const keys = require('./keys.json');
-const PRIVATE_KEY = keys.privateKey;//'x9oZ6jrUVEBDP5C0005fPseqPwLshQbb9io7Upg8sNM=';
+//const PRIVATE_KEY = keys.privateKey;//'x9oZ6jrUVEBDP5C0005fPseqPwLshQbb9io7Upg8sNM=';
 
 const NODE_URL = 'http://localhost:8082';
 
 const SPACE = 'space1';
 
 
-async function createTransaction(KEY, data, tags) {
-    let lastId = await bloqly.getLastId(NODE_URL, SPACE, KEY);
+async function createTransaction(privateSecret, key, data, tags) {
+    let lastId = await bloqly.getLastId(NODE_URL, SPACE, key);
 
     const nonce = lastId.nonce + 1;
 
     let signedTransaction = bloqly.signTransaction(
-        PRIVATE_KEY,
+        privateSecret,
         SPACE,
-        KEY,
+        key,
         nonce,
         Date.now(),
         data,
@@ -43,13 +45,19 @@ app.use(bodyParser.urlencoded({ extended: false }))
  
 // parse application/json
 app.use(bodyParser.json())
- 
+app.use(cors());
 app.post('/register', async (req, res) => {
+    console.log('register', req.body);
     const tags = req.body.needHelp ? ['needhelp'] : [];
     const key = req.body.name;
-    const res = await createTransaction(key, req.body, tags)
-
-    res.json({success: true, privateKey: '', tx: res});
+    try {
+        const tx = await createTransaction(keys.privateKey, key, req.body, tags)
+        console.log('created transaction', tx);
+        res.json({success: true, privateKey: '', tx});
+    } catch(ex) {
+        console.error('failure while registering', ex.message);
+        res.json({success: false, error: ex.message});
+    }
 });
 
 app.get('/list', async (req, res) => {
@@ -61,6 +69,6 @@ app.get('/list', async (req, res) => {
     }
 })
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
+app.listen(3005, function () {
+    console.log('Example app listening on port 3005!');
 });
